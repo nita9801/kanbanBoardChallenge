@@ -1,10 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-
-interface JwtPayload {
-  username: string;
-}
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
-  // TODO: verify the token exists and add the user data to the request object
+    const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied' });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid token' });
+    }
+    req.user = decoded as CustomJwtPayload;
+    return next();
+  });
 };

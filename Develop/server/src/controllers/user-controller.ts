@@ -5,7 +5,7 @@ import { User } from '../models/user.js';
 export const getAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] }
+      select: { id: true, username: true } // Adjust fields as per your database schema
     });
     res.json(users);
   } catch (error: any) {
@@ -34,7 +34,8 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
-    const newUser = await User.create({ username, password });
+    const newUser = new User({ username, password });
+    await newUser.save();
     res.status(201).json(newUser);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
@@ -46,7 +47,7 @@ export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { username, password } = req.body;
   try {
-    const user = await User.findByPk(id);
+    const user = await User.findOne({ where: { id } });
     if (user) {
       user.username = username;
       user.password = password;
