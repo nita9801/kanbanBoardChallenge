@@ -6,6 +6,7 @@ import {
   updateUser,
   deleteUser,
 } from '../../controllers/user-controller.js';
+import { localAuthenticateToken } from '../index.js';
 
 const router = express.Router();
 
@@ -24,4 +25,8 @@ router.put('/:id', updateUser);
 // DELETE /users/:id - Delete a user by id
 router.delete('/:id', deleteUser);
 
-export { router as userRouter };
+router.get('/protected', localAuthenticateToken, (req, res) => {
+  res.json({ message: 'This is a protected route', user: req.user });
+});
+
+export default router;

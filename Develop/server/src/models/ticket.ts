@@ -1,4 +1,5 @@
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import { Sequelize, Model, Optional } from 'sequelize';
+import * as DataTypes from 'sequelize/types/data-types';
 import { User } from './user';
 
 interface TicketAttributes {
@@ -11,7 +12,10 @@ interface TicketAttributes {
 
 interface TicketCreationAttributes extends Optional<TicketAttributes, 'id'> {}
 
-export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> implements TicketAttributes {
+export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> {
+  static init(arg0: { id: { type: any; autoIncrement: boolean; primaryKey: boolean; }; name: { type: any; allowNull: boolean; }; status: { type: any; allowNull: boolean; }; description: { type: any; allowNull: boolean; }; assignedUserId: { type: any; allowNull: boolean; }; }, arg1: { tableName: string; sequelize: Sequelize; }) {
+    throw new Error('Method not implemented.');
+  }
   public id!: number;
   public name!: string;
   public status!: string;
@@ -19,7 +23,7 @@ export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> im
   public assignedUserId!: number;
 
   // associated User model
-  public readonly assignedUser?: User;
+  public readonly assignedUser?: User | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -42,8 +46,8 @@ export function TicketFactory(sequelize: Sequelize): typeof Ticket {
         allowNull: false,
       },
       description: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
       assignedUserId: {
         type: DataTypes.INTEGER,
@@ -51,10 +55,9 @@ export function TicketFactory(sequelize: Sequelize): typeof Ticket {
       },
     },
     {
-      tableName: 'tickets',
       sequelize,
+      tableName: 'tickets',
     }
   );
-
   return Ticket;
 }
