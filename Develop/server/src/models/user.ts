@@ -1,6 +1,6 @@
 import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 import bcrypt from 'bcrypt';
-import sequelize from '../config/database';
+// Ensure the database configuration is correctly implemented and imported where needed
 
 interface UserAttributes {
   id: number;
@@ -58,5 +58,5 @@ export function UserFactory(sequelize: Sequelize): typeof User {
     }
   );
 
-  export default User;
+  return User; // Ensure the function returns the User model
 }

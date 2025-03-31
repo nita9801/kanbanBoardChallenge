@@ -5,7 +5,7 @@ import { User } from '../models/user.js';
 export const getAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await User.findAll({
-      select: { id: true, username: true } // Adjust fields as per your database schema
+      attributes: ['id', 'username'] // Adjust fields as per your database schema
     });
     res.json(users);
   } catch (error: any) {

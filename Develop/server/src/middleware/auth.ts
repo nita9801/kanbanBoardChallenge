@@ -11,7 +11,20 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     if (err) {
       return res.status(403).json({ message: 'Invalid token' });
     }
+    interface CustomJwtPayload extends JwtPayload {
+        userId: string; 
+        username: string; // Ensure username is included
+    }
     req.user = decoded as CustomJwtPayload;
-    return next();
+    next();
+    return; // Ensure all code paths return
   });
-};
+
+  return; // Explicitly return to satisfy all code paths
+}
+
+export interface CustomJwtPayload {
+  id: number;
+  username: string;
+  userId: string; // Ensure consistency with the interface used in the middleware
+}

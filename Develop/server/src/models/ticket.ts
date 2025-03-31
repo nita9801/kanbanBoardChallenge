@@ -13,9 +13,7 @@ interface TicketAttributes {
 interface TicketCreationAttributes extends Optional<TicketAttributes, 'id'> {}
 
 export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> {
-  static init(arg0: { id: { type: any; autoIncrement: boolean; primaryKey: boolean; }; name: { type: any; allowNull: boolean; }; status: { type: any; allowNull: boolean; }; description: { type: any; allowNull: boolean; }; assignedUserId: { type: any; allowNull: boolean; }; }, arg1: { tableName: string; sequelize: Sequelize; }) {
-    throw new Error('Method not implemented.');
-  }
+  // No custom init method is needed; Sequelize's Model.init will be used in the TicketFactory function.
   public id!: number;
   public name!: string;
   public status!: string;
