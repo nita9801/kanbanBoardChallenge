@@ -6,8 +6,6 @@ interface LoginResponse {
   user: { id: number; username: string };
 }
 
-
-
 const login = async (userInfo: UserLogin): Promise<LoginResponse> => {
   const API_URL = 'http://localhost:3001/api/auth/login';
   try {

@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const data = await login(loginData.username, loginData.password) as { token: string };
+      const data = await login({ username: loginData.username, password: loginData.password }) as { token: string };
       Auth.login(data.token);
     } catch (err) {
       console.error('Failed to login', err);
