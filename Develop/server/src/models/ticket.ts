@@ -1,5 +1,4 @@
-import { Sequelize, Model, Optional } from 'sequelize';
-import * as DataTypes from 'sequelize/types/data-types';
+import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 import { User } from './user';
 
 interface TicketAttributes {
@@ -12,8 +11,7 @@ interface TicketAttributes {
 
 interface TicketCreationAttributes extends Optional<TicketAttributes, 'id'> {}
 
-export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> {
-  // No custom init method is needed; Sequelize's Model.init will be used in the TicketFactory function.
+export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> implements TicketAttributes {
   public id!: number;
   public name!: string;
   public status!: string;
@@ -21,7 +19,7 @@ export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> {
   public assignedUserId!: number;
 
   // associated User model
-  public readonly assignedUser?: User | null;
+  public readonly assignedUser?: User;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -44,8 +42,8 @@ export function TicketFactory(sequelize: Sequelize): typeof Ticket {
         allowNull: false,
       },
       description: {
-        type: DataTypes.TEXT,
-        allowNull: true,
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       assignedUserId: {
         type: DataTypes.INTEGER,
@@ -53,9 +51,10 @@ export function TicketFactory(sequelize: Sequelize): typeof Ticket {
       },
     },
     {
-      sequelize,
       tableName: 'tickets',
+      sequelize,
     }
   );
+
   return Ticket;
 }

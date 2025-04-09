@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { login } from './auth-routes';
 
 const router = Router();
 
@@ -20,6 +21,7 @@ export function localAuthenticateToken(req: Request, res: Response, next: NextFu
   } catch (err) {
     res.status(400).send('Invalid Token');
   }
-}
+};
+router.post('/login', login);
 
 export default router;

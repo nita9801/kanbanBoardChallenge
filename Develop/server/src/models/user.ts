@@ -1,6 +1,5 @@
 import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 import bcrypt from 'bcrypt';
-// Ensure the database configuration is correctly implemented and imported where needed
 
 interface UserAttributes {
   id: number;
@@ -43,10 +42,8 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       },
     },
     {
-      sequelize, // Pass the Sequelize instance
-      modelName: 'User', // Name of the model
-      tableName: 'users', // Optional: specify the table name
-      timestamps: true, // Optional: enable createdAt/updatedAt fields
+      tableName: 'users',
+      sequelize,
       hooks: {
         beforeCreate: async (user: User) => {
           await user.setPassword(user.password);
@@ -58,5 +55,5 @@ export function UserFactory(sequelize: Sequelize): typeof User {
     }
   );
 
-  return User; // Ensure the function returns the User model
+  return User;
 }

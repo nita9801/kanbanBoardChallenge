@@ -2,29 +2,35 @@ import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Extract the token from the Authorization header
     const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'Access denied' });
+    if (!token) {
+      return res.status(401).json({ message: 'Access denied' });
+    }
+
+    // Verify the token
+    jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
+      if (err) {
+        res.status(403).json({ message: 'Invalid token' });
+        return;
+      }
+    
+      // Define a custom payload interface
+      interface CustomJwtPayload extends JwtPayload {
+        id: number;
+        username: string;
+      }
+    
+      // Attach the decoded user data to the request object
+      req.user = decoded as CustomJwtPayload;
+    
+      // Proceed to the next middleware
+      next();
+      return;
+    });
+    return;
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
   }
-
-  jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: 'Invalid token' });
-    }
-    interface CustomJwtPayload extends JwtPayload {
-        userId: string; 
-        username: string; // Ensure username is included
-    }
-    req.user = decoded as CustomJwtPayload;
-    next();
-    return; // Ensure all code paths return
-  });
-
-  return; // Explicitly return to satisfy all code paths
-}
-
-export interface CustomJwtPayload {
-  id: number;
-  username: string;
-  userId: string; // Ensure consistency with the interface used in the middleware
-}
+};
