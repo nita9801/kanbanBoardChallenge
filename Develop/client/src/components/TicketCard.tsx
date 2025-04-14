@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import { TicketData } from '../interfaces/TicketData';
-import { ApiMessage } from '../interfaces/ApiMessage';
+import { TicketData } from '../interfaces/TicketData.js';
+import { ApiMessage } from '../interfaces/ApiMessage.js';
 import { MouseEventHandler } from 'react';
+import React from 'react';
 
 interface TicketCardProps {
   ticket: TicketData;

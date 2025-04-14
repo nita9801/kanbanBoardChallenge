@@ -1,6 +1,7 @@
 import TicketCard from './TicketCard';
-import { TicketData } from '../interfaces/TicketData';
-import { ApiMessage } from '../interfaces/ApiMessage';
+import { TicketData } from '../interfaces/TicketData.js';
+import { ApiMessage } from '../interfaces/ApiMessage.js';
+import React from 'react';
 
 interface SwimlaneProps {
   title: string;

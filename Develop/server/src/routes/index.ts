@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { login } from './auth-routes.js';
+import login from './auth-routes.js';
 
 const router = Router();
 

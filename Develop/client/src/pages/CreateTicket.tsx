@@ -1,9 +1,10 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createTicket } from '../api/ticketAPI';
-import { TicketData } from '../interfaces/TicketData';
-import { UserData } from '../interfaces/UserData';
-import { retrieveUsers } from '../api/userAPI';
+import { createTicket } from '../api/ticketAPI.js';
+import { TicketData } from '../interfaces/TicketData.js';
+import { UserData } from '../interfaces/UserData.js';
+import { retrieveUsers } from '../api/userAPI.js';
+import React from 'react';
 
 const CreateTicket = () => {
   const [newTicket, setNewTicket] = useState<TicketData | undefined>(

@@ -1,27 +1,16 @@
-
-import { UserLogin } from '../interfaces/UserLogin';
-
-interface LoginResponse {
-  token: string;
-  user: { id: number; username: string };
-}
-
-const login = async (userInfo: UserLogin): Promise<LoginResponse> => {
+const login = async (userInfo: { username: string; password: string }): Promise<{ token: string }> => {
   const API_URL = 'http://localhost:3001/api/auth/login';
-  try {
-    // Make a POST request to the login route
-    const response = await axios.post<LoginResponse>(API_URL, userInfo);
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userInfo),
+  });
 
-    // Save the token to localStorage
-    localStorage.setItem('token', response.data.token);
-
-    // Return the response data
-    return response.data;
-  } catch (error) {
-    
-    // Handle other unknown errors
-    throw new Error('An unknown error occurred');
+  if (!response.ok) {
+    throw new Error('Login failed');
   }
+
+  return response.json(); // Ensure this returns `{ token: string }`
 };
 
 export { login };

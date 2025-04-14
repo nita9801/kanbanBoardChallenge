@@ -1,8 +1,9 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { retrieveTicket, updateTicket } from '../api/ticketAPI';
-import { TicketData } from '../interfaces/TicketData';
+import { retrieveTicket, updateTicket } from '../api/ticketAPI.js';
+import { TicketData } from '../interfaces/TicketData.js';
+import React from 'react';
 
 const EditTicket = () => {
   const [ticket, setTicket] = useState<TicketData | undefined>();

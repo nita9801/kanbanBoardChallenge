@@ -1,5 +1,5 @@
-import { TicketData } from '../interfaces/TicketData';
-import { ApiMessage } from '../interfaces/ApiMessage';
+import { TicketData } from '../interfaces/TicketData.js';
+import { ApiMessage } from '../interfaces/ApiMessage.js';
 import Auth from '../utils/auth';
 
 const retrieveTickets = async () => {
