@@ -1,8 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import login from './auth-routes.js';
+import authRouter from './auth-routes.js';
 
-const router = Router();
+const index = Router();
 
 export function localAuthenticateToken(req: Request, res: Response, next: NextFunction): void {
   const token = req.get('authorization')?.split(' ')[1];
@@ -22,6 +22,10 @@ export function localAuthenticateToken(req: Request, res: Response, next: NextFu
     res.status(400).send('Invalid Token');
   }
 };
-router.post('/login', login);
+// Import or define the login function
+// Ensure the correct path to the auth-controller file
+import login from '../routes/auth-routes.js';
 
-export default router;
+authRouter.post('/login', login);
+
+export default index;

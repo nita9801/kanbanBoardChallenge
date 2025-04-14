@@ -2,8 +2,9 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { User } from '../models/user.js';
 import { Request, Response } from 'express';
+import { Router } from 'express';
 
-const router = require('express').Router();
+const router = Router();
 
 router.post('/login', async (req: Request, res: Response) => {
   try {
