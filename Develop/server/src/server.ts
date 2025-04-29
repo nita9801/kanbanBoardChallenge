@@ -1,28 +1,32 @@
 const forceDatabaseRefresh = false;
-
 import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
 import { sequelize } from './models/index.js';
+import { ticketRouter } from './routes/api/ticket-routes.js'; // Import ticketRouter
+import userRouter from './routes/api/user-routes.js';
+import authRouter from './routes/auth-routes.js';
+import indexRouter from './routes/index.js';
 
 const app = express();
-const PORT = process.env.PORT || 3002;
-
-// Serves static files in the entire client's dist folder
-app.use(express.static('../client/dist'));
-import authRouter from './routes/auth-routes.js'; // Ensure the correct path
-import indexRouter from './routes/index.js'; // Import your index router
 
 app.use(express.json()); // Middleware to parse JSON requests
 
-// Mount the authRouter at /api/auth
+// Mount API routes
+app.use('/api/tickets', ticketRouter); // Mount ticketRouter
+app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+
+// Serve static files
+app.use(express.static('../client/dist'));
 
 // Mount other routes (if needed)
 app.use('/', indexRouter);
 
-sequelize.sync({force: forceDatabaseRefresh}).then(() => {
+const PORT = process.env.PORT || 3002;
+
+sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
