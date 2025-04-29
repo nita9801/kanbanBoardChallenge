@@ -4,11 +4,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import routes from './routes/index.js';
 import { sequelize } from './models/index.js';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // Serves static files in the entire client's dist folder
 app.use(express.static('../client/dist'));
@@ -22,13 +21,6 @@ app.use('/api/auth', authRouter);
 
 // Mount other routes (if needed)
 app.use('/', indexRouter);
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-app.use(express.json());
-app.use(routes);
 
 sequelize.sync({force: forceDatabaseRefresh}).then(() => {
   app.listen(PORT, () => {

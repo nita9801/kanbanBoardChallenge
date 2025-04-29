@@ -1,0 +1,51 @@
+# Kanban Board Challenge
+
+This project is a Kanban Board application built with a client-server architecture. The client is a front-end application, and the server is a back-end API that handles data persistence and authentication. The project uses PostgreSQL as the database and is designed to manage tasks and tickets in a Kanban-style workflow.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup Instructions](#setup-instructions)
+- [Scripts](#scripts)
+- [Environment Variables](#environment-variables)
+- [Database Seeding](#database-seeding)
+- [License](#license)
+
+---
+
+## Features
+
+- User authentication with JWT.
+- Task and ticket management.
+- Kanban-style workflow for organizing tasks.
+- RESTful API for server-client communication.
+- PostgreSQL database for data persistence.
+
+---
+
+## Technologies Used
+
+- **Frontend**: React (client-side code)
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL
+- **ORM**: Sequelize
+- **Dev Tools**: Nodemon, Concurrently, Wait-on
+- **Other Libraries**: Axios, dotenv
+
+---
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (v22.13.1 or later)
+- PostgreSQL (running on `localhost:5432`)
+- npm (Node Package Manager)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nita9801/kanbanBoardChallenge.git
+   cd kanbanBoardChallenge/Develop

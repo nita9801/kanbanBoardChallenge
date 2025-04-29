@@ -1,5 +1,5 @@
 const login = async (userInfo: { username: string; password: string }): Promise<{ token: string }> => {
-  const API_URL = 'http://localhost:3001/api/auth/login';
+  const API_URL = 'http://localhost:3002/api/auth/login';
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
