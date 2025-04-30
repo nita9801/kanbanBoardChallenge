@@ -17,10 +17,15 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log('Login data:', loginData); // Debug log
     try {
       const data = await login({ username: loginData.username, password: loginData.password });
+      console.log('Login response:', data); // Debug log
+      if (!data ||!data.token) {
+        throw new Error ('invalid login response');
+      }
       Auth.login(data.token);
     } catch (err) {
       console.error('Failed to login', err);

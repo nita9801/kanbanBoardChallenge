@@ -7,6 +7,7 @@ import { sequelize } from './models/index.js';
 import { ticketRouter } from './routes/api/ticket-routes.js'; // Import ticketRouter
 import userRouter from './routes/api/user-routes.js';
 import authRouter from './routes/auth-routes.js';
+
 import indexRouter from './routes/index.js';
 
 const app = express();
