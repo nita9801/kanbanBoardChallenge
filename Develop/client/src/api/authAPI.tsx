@@ -1,32 +1,27 @@
-// import { UserLogin } from '../../interfaces/UserLogin';
 
 import { UserLogin } from "../interfaces/UserLogin";
 
-// Function to send a POST request to the '/auth/login' endpoint with user login information
 const login = async (userInfo: UserLogin) => {
+  //  make a POST request to the login route
   try {
-    // Send a POST request to '/auth/login' with user login information in JSON format
-    const response = await fetch('http://localhost:3002/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userInfo),
-    });
+      const response = await fetch('http://localhost:3002/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
 
-    // Throw error if response status is not OK (200-299)
-    if (!response.ok) {
-      const errorData = await response.json(); // Parse error response as JSON
-      throw new Error(`Error: ${errorData.message}`); // Throw a detailed error message
-    }
+      const data = await response.json();
 
-    // Parse the response body as JSON
-    const data = await response.json();
+      if (!response.ok) {
+        throw new Error('User information not retrived, check network tab!');
+      }
 
-    return data; // Return the data received from the server
+      return data;
   } catch (err) {
-    console.log('Error from user login: ', err); // Log any errors that occur during fetch
-    return Promise.reject('Could not fetch user info'); // Return a rejected promise with an error message
+    console.log('Error from user login: ', err);
+    return Promise.reject('Could not fetch user info');
   }
 };
 

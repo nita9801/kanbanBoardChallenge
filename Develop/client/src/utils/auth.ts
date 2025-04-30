@@ -1,10 +1,10 @@
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import type { UserData } from '../interfaces/UserData';
 
 class AuthService {
-  // Decode the token and return the user profile
   getProfile() {
-    const token = this.getToken();
-    return token ? jwtDecode<JwtPayload>(token) : null;
+    // TODO: return the decoded token
+    return jwtDecode<UserData>(this.getToken());
   }
 
   // Check if the user is logged in

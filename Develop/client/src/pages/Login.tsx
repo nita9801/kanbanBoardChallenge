@@ -1,6 +1,8 @@
 import { useState, FormEvent, ChangeEvent } from "react";
+
 import Auth from '../utils/auth.js';
 import { login } from "../api/authAPI.js";
+
 import React from "react";
 
 const Login = () => {
@@ -17,15 +19,10 @@ const Login = () => {
     });
   };
 
-    const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('Login data:', loginData); // Debug log
     try {
-      const data = await login({ username: loginData.username, password: loginData.password });
-      console.log('Login response:', data); // Debug log
-      if (!data ||!data.token) {
-        throw new Error ('invalid login response');
-      }
+      const data = await login(loginData);
       Auth.login(data.token);
     } catch (err) {
       console.error('Failed to login', err);
