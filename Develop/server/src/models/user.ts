@@ -25,7 +25,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
 }
 
 export function UserFactory(sequelize: Sequelize): typeof User {
-  User.init(
+  return User.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -46,14 +46,8 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       sequelize,
       hooks: {
         beforeCreate: async (user: User) => {
-          await bcrypt.hash(user.password, 10);
+          user.password = await bcrypt.hash(user.password, 10);
         },
-        beforeUpdate: async (user: User) => {
-          await bcrypt.hash(user.password, 10);
-        }
       }
-    }
-  );
-
-  return User;
+    });
 }

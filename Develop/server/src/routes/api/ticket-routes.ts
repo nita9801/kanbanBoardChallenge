@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import express from 'express';
 import {
   getAllTickets,
   getTicketById,
@@ -7,7 +7,7 @@ import {
   deleteTicket,
 } from '../../controllers/ticket-controller.js';
 
-const router = Router();
+const router = express.Router();
 
 // GET /tickets - Get all tickets
 router.get('/', getAllTickets);

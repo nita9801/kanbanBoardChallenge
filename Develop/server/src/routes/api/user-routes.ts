@@ -6,7 +6,8 @@ import {
   updateUser,
   deleteUser,
 } from '../../controllers/user-controller.js';
-import { localAuthenticateToken } from '../index.js';
+import { localAuthenticateToken } from '../../middleware/auth.js';
+
 
 const router = express.Router();
 

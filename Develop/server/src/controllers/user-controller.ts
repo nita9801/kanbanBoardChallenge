@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 
+
 // GET /Users
 export const getAllUsers = async (_req: Request, res: Response) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'username'] // Adjust fields as per your database schema
+      attributes: { exclude: ['password'] }
     });
-    res.json(users);
+     res.json(users);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+     res.status(500).json({ message: error.message });
   }
 };
 

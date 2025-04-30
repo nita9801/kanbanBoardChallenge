@@ -1,15 +1,16 @@
 const forceDatabaseRefresh = false;
+
 import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
 import { sequelize } from './models/index.js';
+
 import { ticketRouter } from './routes/api/ticket-routes.js'; // Import ticketRouter
 import userRouter from './routes/api/user-routes.js';
 import authRouter from './routes/auth-routes.js';
-
 import indexRouter from './routes/index.js';
-
+import routes from './routes/index.js';
 const app = express();
 
 app.use(express.json()); // Middleware to parse JSON requests
@@ -24,6 +25,8 @@ app.use(express.static('../client/dist'));
 
 // Mount other routes (if needed)
 app.use('/', indexRouter);
+app.use(express.json());
+app.use(routes);
 
 const PORT = process.env.PORT || 3002;
 
